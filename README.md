@@ -23,6 +23,18 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get install git-core zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev nodejs yarn gnupg2
 ```
 
+## Install ZSH y Oh My Zsh!
+```bash
+sudo apt-get install zsh -y
+chsh -s /usr/bin/zsh
+echo $SHELL
+```
+As you can see, it showed /usr/bin/zsh, which means it is successfully set as the default shell.
+```bash
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+
 ## Install Rbenv or RVM (my favorite)
 ### For installing Rbenv:
 
@@ -164,38 +176,29 @@ sudo -u postgres createuser chris -s
 sudo -u postgres psql
 postgres=# \password chris
 ```
-
-## Final Steps
-
-And now for the moment of truth. Let's create your first Rails application:
-
+## Install AWS CLI
 ```bash
-#### If you want to use SQLite (not recommended)
-rails new myapp
-
-#### If you want to use MySQL
-rails new myapp -d mysql
-
-#### If you want to use Postgres
-# Note that this will expect a postgres user with the same username
-# as your app, you may need to edit config/database.yml to match the
-# user you created earlier
-rails new myapp -d postgresql
-
-# Move into the application directory
-cd myapp
-
-# If you setup MySQL or Postgres with a username/password, modify the
-# config/database.yml file to contain the username/password that you specified
-
-# Create the database
-rake db:create
-
-rails server
+cd
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 ```
 
-You can now visit http://localhost:3000 to view your new website!
+## Install Docker
+```bash
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-cache policy docker-ce
+sudo apt update
+sudo apt install docker-ce
+sudo systemctl status docker
+```
 
-Now that you've got your machine setup, it's time to start building some Rails applications.
+## Install Docker-Compose
+```bash
+sudo curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+docker-compose --version
+```
 
-If you received an error that said Access denied for user 'root'@'localhost' (using password: NO) then you need to update your config/database.yml file to match the database username and password.
